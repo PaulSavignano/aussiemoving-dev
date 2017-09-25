@@ -1,0 +1,14 @@
+.card-item {
+  height: 100%;
+}
+.card-actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.card-actions > p {
+  margin: 8px;
+}
+.card-content {
+  padding: 8px;
+}

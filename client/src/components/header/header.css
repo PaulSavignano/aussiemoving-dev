@@ -1,0 +1,103 @@
+
+/**** Mobile layout ****/
+
+@media (max-width: 375px) {
+  .largerThanIphone375 {
+    display: none !important;
+  }
+}
+@media (max-width: 667px) {
+  .largerThanIphone667 {
+    display: none !important;
+  }
+}
+@media (max-width: 768px) {
+  .largerThanIpad768 {
+    display: none !important;
+  }
+}
+@media (max-width: 1024px) {
+  .largerThanIpad1024 {
+    display: none !important;
+  }
+}
+@media (max-width: 1366px) {
+  .largerThanIpad1366 {
+    display: none !important;
+  }
+}
+@media (max-width: 1920px) {
+  .largerThan1920 {
+    display: none !important;
+  }
+}
+
+
+.fa.fa-shopping-cart {
+  font-size: 20px !important;
+}
+
+.drawer-brand {
+  font-size: 24px;
+  height: 64px;
+  padding-left: 16px;
+  cursor: pointer;
+  display: flex
+}
+
+.appbar {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.appbar-navigation-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.appbar-navigation {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 64px;
+}
+
+.appbar-phone-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 32px;
+  padding: 4px 4px 0 0;
+}
+
+.appbar-phone {
+  text-decoration: none;
+  color: inherit;
+  font-size: 30px
+}
+
+.active-nav {
+  border-bottom: 2px solid !important;
+}
+
+.header-brand {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.header-brand-image {
+  margin-right: 8px
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+  align-self: flex-start;
+}
