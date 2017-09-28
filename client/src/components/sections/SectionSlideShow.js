@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { CSSTransitionGroup } from 'react-transition-group'
 
-import slideShowContainer from '../../containers/sections/slideShowContainer'
+import sectionContainer from '../../containers/sections/sectionContainer'
 import renderComponents from './renderComponents'
 
-class SlideShow extends Component {
+class SectionSlideShow extends Component {
   state = {
     index: 0,
     intervalId: null
   }
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.autoplay) {
       this.start()
     }
@@ -36,22 +36,24 @@ class SlideShow extends Component {
   }
   render() {
     const {
-      autoplay,
       item: {
-        items
+        _id,
+        items,
+        values: {
+          pageLink
+        }
       },
-      propsForParent,
-      propsForChild,
+      style
     } = this.props
     return (
-      <section {...propsForParent}>
+      <section style={style} id={pageLink || _id}>
         <CSSTransitionGroup
           transitionName="cross-fade"
-          transitionEnter={autoplay}
+          transitionEnter={true}
           transitionEnterTimeout={2000}
-          transitionLeave={autoplay}
+          transitionLeave={true}
           transitionLeaveTimeout={2000}
-          {...propsForChild}
+
         >
           {renderComponents({ components: items })[this.state.index]}
         </CSSTransitionGroup>
@@ -60,12 +62,11 @@ class SlideShow extends Component {
   }
 }
 
-SlideShow.propTypes = {
+SectionSlideShow.propTypes = {
   autoplay: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
-  propsForParent: PropTypes.object.isRequired,
-  propsForChild: PropTypes.object.isRequired
+  style: PropTypes.object.isRequired,
 }
 
-export default slideShowContainer(SlideShow)
+export default sectionContainer(SectionSlideShow)

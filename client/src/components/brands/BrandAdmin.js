@@ -49,7 +49,9 @@ const formFields = [{
   name: 'business',
   fields: [
     { name: 'name', type: 'text' },
+    { name: 'license', type: 'text' },
     { name: 'description', type: 'text' },
+    { name: 'keywords', type: 'text' },
     { name: 'phone', type: 'phone' },
     { name: 'email', type: 'text' },
     { name: 'street', type: 'text' },
@@ -85,7 +87,6 @@ const formFields = [{
     { name: 'h3TextShadow', type: 'text' },
     { name: 'margin', type: 'text' },
     { name: 'mediaBorder', type: 'text' },
-    { name: 'width', type: 'text' }
   ]
 }, {
   name: 'footer',

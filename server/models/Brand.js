@@ -56,7 +56,9 @@ const BrandSchema = new Schema({
     },
     values: {
       name: { type: String, trim: true, default: 'Brand' },
+      license: { type: String, trim: true },
       description: { type: String, trim: true, default: null },
+      keywords: { type: String, trim: true },
       phone: { type: String, trim: true, default: null },
       email: { type: String, trim: true, default: null },
       street: { type: String, trim: true, default: null },
@@ -80,7 +82,7 @@ const BrandSchema = new Schema({
       button1Color: { type: String, trim: true },
       button2Color: { type: String, trim: true },
       elevation: { type: Number, trim: true, default: 1 },
-      flex: { type: String, trim: true, default: '1 1 auto' },
+      flex: { type: String, trim: true, default: '1 1 300px' },
       h1Align: { type: String, trim: true, default: 'center' },
       h1Color: { type: String, trim: true, default: 'rgba(0, 0, 0, .87)' },
       h1TextShadow: { type: String, trim: true },
@@ -92,7 +94,6 @@ const BrandSchema = new Schema({
       h3TextShadow: { type: String, trim: true },
       margin: { type: String, trim: true, default: '16px' },
       mediaBorder: { type: String, trim: true },
-      width: { type: String, trim: true },
     }
   },
   footer: {

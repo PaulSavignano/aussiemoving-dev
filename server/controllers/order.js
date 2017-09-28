@@ -8,6 +8,7 @@ import { sendEmail1 } from '../middleware/nodemailer'
 const formatPrice = (cents) => `$${(cents / 100).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
 
 export const add = (req, res, next) => {
+  console.log('inside order route')
   const {
     _id,
     values: {
@@ -28,7 +29,7 @@ export const add = (req, res, next) => {
     cart
   } = req.body
   if (fullAddress === 'newAddress') {
-    const newDoc = new Address({
+    const newAddress = new Address({
       user: ObjectID(_id),
       values: {
         name,
@@ -39,22 +40,23 @@ export const add = (req, res, next) => {
         state
       }
     })
-    newDoc.save()
-    .then(doc => {
-      User.findOneAndUpdate(
+    newAddress.save()
+    .then(address => {
+      return User.findOneAndUpdate(
         { _id },
-        { $push: { addresses: doc._id }},
+        { $push: { addresses: address._id }},
         { new: true }
       )
       .then(() => createCharge({
         _id,
-        address: doc,
+        address,
         cart,
         email,
         firstName,
         lastName,
         token,
-        res
+        res,
+        req
       }))
       .catch(error => {
         console.error(error)
@@ -66,7 +68,7 @@ export const add = (req, res, next) => {
       res.status(400).send({ error })
     })
   } else {
-    Address.findOne({ _id: fullAddress })
+    return Address.findOne({ _id: fullAddress })
     .then(doc => createCharge({
       _id,
       address: doc,
@@ -75,7 +77,8 @@ export const add = (req, res, next) => {
       firstName,
       lastName,
       token,
-      res
+      res,
+      req
     }))
     .catch(error => {
       console.error(error)
@@ -92,14 +95,17 @@ const createCharge = ({
   firstName,
   lastName,
   token,
-  res
+  res,
+  req
 }) => {
+  console.log('made it to create charge')
+  const rootUrl = req.get('host')
   const stripe = require("stripe")(process.env.STRIPE_SK_TEST)
-  stripe.charges.create({
+  return stripe.charges.create({
     amount: Math.round(cart.total),
     currency: "usd",
     source: token,
-    description: `${process.env.APP_NAME} Order`
+    description: `${rootUrl} Order`
   })
   .then(charge => {
     const newOrder = new Order({
@@ -149,7 +155,7 @@ const createCharge = ({
         fromBody: `
           <p>${firstName} ${lastName} just placed order an order!</p>
           ${htmlOrder}
-          <p>Once shipped, you can mark the item as shipped in at ${process.env.ROOT_URL}/admin/orders to send confirmation to ${firstName}.</p>
+          <p>Once shipped, you can mark the item as shipped in at <a href="${rootUrl}/admin/orders">${rootUrl}/admin/orders</a> to send confirmation to ${firstName}.</p>
         `
       })
     })

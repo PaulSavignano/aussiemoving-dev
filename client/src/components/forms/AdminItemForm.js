@@ -35,13 +35,17 @@ class AdminItemForm extends Component {
   }
   handleImageRemove = (image) => {
     const { dispatch, editItem: { item: { _id }}} = this.props
-    this.setState({ imageEdit: false })
-    return dispatch(this.state.itemForm.update(_id, { type: 'DELETE_IMAGE', image }))
+    if (window.confirm('Are you sure you want to delete this image?')) {
+      this.setState({ imageEdit: false })
+      return dispatch(this.state.itemForm.update(_id, { type: 'DELETE_IMAGE', image }))
+    }
   }
   handleBackgroundImageRemove = (image) => {
     const { dispatch, editItem: { item: { _id }}} = this.props
-    this.setState({ backgroundImageEdit: false })
-    return dispatch(this.state.itemForm.update(_id, { type: 'DELETE_BACKGROUND_IMAGE', image }))
+    if (window.confirm('Are you sure you want to delete this image?')) {
+      this.setState({ backgroundImageEdit: false })
+      return dispatch(this.state.itemForm.update(_id, { type: 'DELETE_BACKGROUND_IMAGE', image }))
+    }
   }
   handleFormSubmit = (values) => {
     const { imageEdit, backgroundImageEdit } = this.state
@@ -82,9 +86,11 @@ class AdminItemForm extends Component {
     }
     return dispatch(fetchUpdate(_id, { type: 'UPDATE_VALUES', values, pageSlug }))
   }
-  handleRemove = () => {
-    const { dispatch, editItem: { item: { _id }}} = this.props
-    return dispatch(this.state.itemForm.delete(_id))
+  handleDelete = () => {
+    const { dispatch, editItem: { item: { _id }, kind }} = this.props
+    if (window.confirm(`Are you sure you want to delete ${kind.toLowerCase()}?`)) {
+      return dispatch(this.state.itemForm.delete(_id))
+    }
   }
   handleStopEdit = () => this.props.dispatch(stopEdit())
   handleNumberToString = value => {
@@ -106,6 +112,7 @@ class AdminItemForm extends Component {
         item: { _id, backgroundImage, image },
         kind,
       },
+      invalid,
       pristine,
       submitting
     } = this.props
@@ -115,7 +122,7 @@ class AdminItemForm extends Component {
         actions={
           <div className="button-container">
             <RaisedButton
-              disabled={pristine || submitting}
+              disabled={pristine || invalid}
               onTouchTap={handleSubmit(this.handleFormSubmit)}
               label={submitting ?
                 <CircularProgress key={1} color="#ffffff" size={25} style={{ verticalAlign: 'middle' }} />
@@ -131,7 +138,7 @@ class AdminItemForm extends Component {
               className="delete-button"
               labelColor="#ffffff"
               style={{ flex: '0 1 auto', margin: 4 }}
-              onTouchTap={this.handleRemove}
+              onTouchTap={this.handleDelete}
             />
             <RaisedButton
               type="button"

@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import './page.css'
-import AdminPageEdit from './AdminPageEdit'
+import AdminPageEditButtons from './AdminPageEditButtons'
 import AdminItemForm from '../forms/AdminItemForm'
 import pageContainer from '../../containers/pages/pageContainer'
 import renderAdminSections from './renderAdminSections'
 
 class AdminPage extends Component {
-  componentDidMount() {
-    window.scrollTo(0,0)
-  }
   render() {
     const {
       dispatch,
@@ -31,7 +28,7 @@ class AdminPage extends Component {
             pageSlug: slug
           })}
         </div>
-        <AdminPageEdit
+        <AdminPageEditButtons
           dispatch={dispatch}
           page={this.props.page}
         />

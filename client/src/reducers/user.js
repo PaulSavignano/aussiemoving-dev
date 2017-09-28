@@ -44,7 +44,8 @@ const user = (state = {
     case 'ERROR_USER':
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        isFetching: false,
       }
     case 'RECOVER_USER':
       return {
