@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/MenuItem'
 
 import renderSelectField from '../fields/renderSelectField'
 import renderTextField from '../fields/renderTextField'
-import normalizePhone from '../../utils/normalizePhone'
+import normalizePhoneAussie from '../../utils/normalizePhoneAussie'
 import normalizeZip from '../../utils/normalizeZip'
 import normalizeState from '../../utils/normalizeState'
 
@@ -38,7 +38,7 @@ class BrandFormField extends Component {
             component={renderTextField}
             className="field"
             style={{ fontFamily }}
-            normalize={normalizePhone}
+            normalize={normalizePhoneAussie}
           />
         )
       case 'select':
