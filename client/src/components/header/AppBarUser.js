@@ -7,7 +7,7 @@ import Menu from 'material-ui/Menu'
 
 import './header.css'
 import UserButtons from './UserButtons'
-import { fetchSignout } from '../../actions/user'
+import { signout } from '../../actions/user'
 
 class AppBarUser extends Component {
   state = {
@@ -25,7 +25,7 @@ class AppBarUser extends Component {
   handleSignout = () => {
     const { dispatch, history } = this.props
     this.handleCloseMenu()
-    return dispatch(fetchSignout(history))
+    return dispatch(signout(history))
   }
   componentDidMount() {
     const { cartQty } = this.props
@@ -62,7 +62,13 @@ class AppBarUser extends Component {
   }
   render() {
     const { horizontal, navClass } = this.state
-    const { dispatch, color, firstName, fontFamily } = this.props
+    const {
+      color,
+      dispatch,
+      firstName,
+      fontFamily,
+      history,
+    } = this.props
     return (
       <div
         ref={ (userNav) => this.userNav = userNav}
@@ -86,6 +92,7 @@ class AppBarUser extends Component {
         >
           <Menu>
             <UserButtons
+              history={history}
               dispatch={dispatch}
               firstName={firstName}
               onSelect={this.handleCloseMenu}
@@ -101,7 +108,8 @@ AppBarUser.propTypes = {
   color: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   firstName: PropTypes.string,
-  fontFamily: PropTypes.string.isRequired
+  fontFamily: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 export default withRouter(AppBarUser)

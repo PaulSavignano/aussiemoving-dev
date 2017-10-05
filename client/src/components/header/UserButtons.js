@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import MenuItem from 'material-ui/MenuItem'
 
-import { fetchSignout } from '../../actions/user'
+import { signout } from '../../actions/user'
 
 class UserButtons extends Component {
   handleSignout = () => {
-    const { dispatch, onSelect } = this.props
+    const { dispatch, history, onSelect } = this.props
     onSelect()
-    return dispatch(fetchSignout())
+    return dispatch(signout(history))
   }
   render() {
     const {
@@ -49,6 +49,7 @@ class UserButtons extends Component {
 UserButtons.propTypes = {
   firstName: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
   onSelect: PropTypes.func.isRequired,
 }
 

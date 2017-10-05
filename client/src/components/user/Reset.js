@@ -5,8 +5,9 @@ import { Card, CardTitle, CardText } from 'material-ui/Card'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
+import './user.css'
 import history from '../../containers/routers/history'
-import userContainer from '../../containers/user/userContainer'
+import resetHOC from '../../containers/user/resetHOC'
 import SuccessableButton from '../buttons/SuccessableButton'
 import renderTextField from '../../components/fields/renderTextField'
 import { fetchReset } from '../../actions/user'
@@ -40,7 +41,7 @@ class Reset extends Component {
     }
   }
   handleFormSubmit = values => {
-    const { dispatch, params: { token }} = this.props
+    const { dispatch, token } = this.props
     return dispatch(fetchReset(values, token))
   }
   componentWillReceiveProps({ submitFailed, submitSucceeded, user: { values: { firstName }}}) {
@@ -58,8 +59,8 @@ class Reset extends Component {
     } = this.props
     return (
       <div className="page">
-        <section className="section-margin">
-          <Card>
+        <section className="section">
+          <Card className="card">
             <CardTitle title="Reset" subtitle="Enter your email to recover your account" />
             <form onSubmit={handleSubmit(this.handleFormSubmit)} className="">
               <CardText>
@@ -106,7 +107,7 @@ Reset.propTypes = {
   user: PropTypes.object.isRequired
 }
 
-export default userContainer(reduxForm({
-  form: 'recovery',
+export default resetHOC(reduxForm({
+  form: 'reset',
   validate
 })(Reset))

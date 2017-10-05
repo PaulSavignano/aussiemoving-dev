@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton'
 import {Card, CardTitle, CardText} from 'material-ui/Card'
 import MenuItem from 'material-ui/MenuItem'
 
+import './user.css'
 import SuccessableButton from '../buttons/SuccessableButton'
 import renderTextField from '../../components/fields/renderTextField'
 import renderSelectField from '../../components/fields/renderSelectField'
@@ -58,8 +59,8 @@ class RequestEstimate extends Component {
     } = this.props
     return (
       <div className="page">
-        <section className="section-margin">
-          <Card>
+        <section className="section">
+          <Card className="card">
             <CardTitle title="Request Estimate" subtitle="Enter your information" />
             <form onSubmit={handleSubmit(values => dispatch(fetchRequestEstimate(values)))} >
               <CardText>
@@ -114,7 +115,7 @@ class RequestEstimate extends Component {
                 <SuccessableButton
                   disabled={pristine || invalid}
                   error={error}
-                  label="Request Estimage"
+                  label="Request Estimate"
                   reset={reset}
                   submitSucceeded={submitSucceeded}
                   submitting={submitting}

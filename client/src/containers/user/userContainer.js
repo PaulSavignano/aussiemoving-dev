@@ -18,18 +18,14 @@ const userContainer = (ComposedComponent) => {
   const mapStateToProps = ({
     brand,
     user
-  }, {
-    params
   }) => ({
     isFetching: brand.isFetching || user.isFetching ? true : false,
-    params,
     primary1Color: brand.palette.values.primary1Color,
     user
   })
   UserContainer.propTypes = {
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    params: PropTypes.object,
     primary1Color: PropTypes.string.isRequired,
     user: PropTypes.object.isRequired
   }

@@ -9,9 +9,6 @@ import User from '../models/User'
 import { sendEmail1 } from '../middleware/nodemailer'
 
 export const adminAdd = (req, res) => {
-  const { user } = req
-  const isOwner = user.roles.some(role => role === 'owner')
-  if (!isOwner) return res.status(400).send({ error: 'umauthorized'})
   const { email, firstName, lastName, password } = req.body
   if ( !email || !firstName || !firstName || !password) {
     return res.status(422).send({ error: 'You must provide all fields' });
@@ -30,25 +27,16 @@ export const adminAdd = (req, res) => {
 
 
 export const adminGet = (req, res) => {
-  const { user } = req
-  const isOwner = user.roles.some(role => role === 'owner')
-  if (!isOwner) return res.status(400).send({ error: 'unauthorized'})
   User.find({})
   .then(users => res.send(users))
-  .catch(error => {
-    console.log(error)
-    res.status(400).send({ error })
-  })
+  .catch(error => { console.error(error); res.status(400).send({ error })})
 }
 
 export const adminUpdate = (req, res) => {
   const {
-    user,
     params: { _id },
     body: { values, type }
   } = req
-  const isOwner = user.roles.some(role => role === 'owner')
-  if (!isOwner) return res.status(400).send({ error: 'umauthorized'})
   switch(type) {
     case 'UPDATE_VALUES':
       return User.findOne({ _id })
@@ -64,15 +52,9 @@ export const adminUpdate = (req, res) => {
           }
           user.save()
           .then(user => res.send(user))
-          .catch(error => {
-            console.error({ error })
-            res.status(400).send({ error })
-          })
+          .catch(error => { console.error(error); res.status(400).send({ error })})
         })
-        .catch(error => {
-          console.log({ error })
-          res.status(400).send({ error })
-        })
+        .catch(error => { console.error(error); res.status(400).send({ error })})
     case 'UPDATE_ROLES':
       const roles = values.owner ?
       [ 'admin', 'owner', 'user' ]
@@ -90,20 +72,14 @@ export const adminUpdate = (req, res) => {
         .then(user => {
           res.send(user)
         })
-        .catch(error => {
-          console.log({ error })
-          res.status(400).send({ error })
-        })
+        .catch(error => { console.error(error); res.status(400).send({ error })})
     default:
       return
   }
 }
 
 export const adminRemove = (req, res) => {
-  console.log('adminremove')
-  const { user, params: { _id }} = req
-  const isOwner = user.roles.some(role => role === 'owner')
-  if (!isOwner) return res.status(400).send({ error: 'umauthorized'})
+  const { _id } = req.params
   User.findOneAndRemove({ _id })
   .then(doc => {
     res.send(doc)

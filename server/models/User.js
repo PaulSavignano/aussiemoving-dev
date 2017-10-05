@@ -57,88 +57,14 @@ UserSchema.methods.toJSON = function() {
   return { _id, addresses, roles, values }
 }
 
-UserSchema.methods.generateAuthToken = function() {
-  const user = this
-  const access = 'auth'
-  const token = jwt.sign({ _id: user._id.toHexString(), access }, process.env.JWT_SECRET).toString()
-  const newToken = new Token({
-    user: ObjectID(user._id),
-    access,
-    token
-  })
-  return newToken.save()
-  .then(() => token)
-  .catch(error => Promise.reject(error))
 
-  // user.tokens.push({ access, token })
-  // return user.save()
-  //   .then(() => token)
-  //   .catch(err => Promise.reject(err))
-}
 
-UserSchema.methods.removeToken = function(token) {
-  const user = this
-  return Token.remove({ user: user._id })
 
-  // return user.update({
-  //   $pull: {
-  //     tokens: {
-  //       token
-  //     }
-  //   }
-  // })
-}
 
-// UserSchema.methods.removeTokens = function(tokens) {
-//   const user = this
-//   return user.update({
-//     $pull: {
-//       tokens: {
-//         $in: tokens
-//       }
-//     }
-//   })
-// }
 
-UserSchema.methods.buildResponse = function() {
-  const user = this
-  const { _id, addresses, roles, values } = user
 
-  const isOwner = roles.some(role => role === 'owner')
-  const isAdmin = roles.some(role => role === 'admin')
-  if (isOwner) {
-    return Promise.all([
-      User.find({}).populate({ path: 'addresses' }).sort({ 'values.lastName': 1, 'values.firstName': 1 }).then(users => users),
-      Order.find({}).then(orders => orders)
-    ])
-    .then(([users, orders]) => {
-      return {
-        user: { _id, addresses, roles, values },
-        users,
-        orders
-      }
-    })
-    .catch(error => Promise.reject(error))
-  }
-  if (isAdmin) {
-    return Order.find({})
-    .then(orders => {
-      return {
-        orders,
-        user: { _id, addresses, roles, values }
-      }
-    })
-    .catch(error => Promise.reject(error))
-  }
-  return Order.find({ user: user._id })
-  .then(orders => {
-    return {
-      user: { _id, addresses, roles, values },
-      orders
-    }
-  })
-  .catch(error => Promise.reject(error))
-}
+
+
 
 
 
@@ -147,34 +73,52 @@ UserSchema.statics.findByToken = function(token, roles) {
   let decoded
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET)
+    console.log(decoded)
   } catch (error) {
     return Promise.reject(error)
   }
-  return Token.findOne({ token })
+  return Token.findOne({ token, user: decoded._id })
   .then(token => {
     return User.findOne({ _id: token.user })
   })
-
 }
+
+
+
+
+
+UserSchema.methods.removeToken = function(token) {
+  const user = this
+  return Token.remove({ user: user._id })
+}
+
+
+
+
 
 UserSchema.statics.findByCredentials = function(email, password) {
   const User = this
   return User.findOne({ 'values.email': email.toLowerCase() })
     .populate({ path: 'addresses' })
     .then(user => {
-      if (!user) return Promise.reject({ error: { email: 'User not found'}})
+      if (!user) return Promise.reject({ email: 'User not found' })
       return new Promise((resolve, reject) => {
         bcrypt.compare(password, user.password)
         .then(res => {
           if (res) {
             resolve(user)
           } else {
-            reject({ error: { password: 'Password does not match' }})
+            reject({ password: 'Password does not match' })
           }
         })
       })
     })
 }
+
+
+
+
+
 
 UserSchema.pre('save', function(next) {
   const user = this
@@ -192,7 +136,8 @@ UserSchema.pre('save', function(next) {
 
 
 UserSchema.post('findOneAndRemove', function(doc, next) {
-  Address.deleteMany({ _id: { $in: doc.addresses }}).catch(error => console.error(error))
+  Address.deleteMany({ user: doc._id }).catch(error => console.error(error))
+  Token.deleteMany({ user: doc._id }).catch(error => console.error(error))
   next()
 })
 
