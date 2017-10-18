@@ -28,9 +28,11 @@ class Header extends Component {
           imageBorderRadius,
           imageElevation,
           imagePosition,
+          imageWidth,
           letterSpacing,
           name,
           navColor,
+          phoneSize,
           showPhone,
           textShadow
         }
@@ -75,6 +77,7 @@ class Header extends Component {
                   imageBorderRadius={imageBorderRadius}
                   imageElevation={imageElevation}
                   imageClass={imagePosition}
+                  imageWidth={imageWidth}
                   letterSpacing={letterSpacing}
                   name={name}
                   textShadow={textShadow}
@@ -85,8 +88,10 @@ class Header extends Component {
                   dispatch={dispatch}
                   firstName={firstName}
                   fontFamily={fontFamily}
+                  fontWeight={fontWeight}
                   pages={pages}
                   phone={phone}
+                  phoneSize={phoneSize}
                   primary1Color={primary1Color}
                   searchOpen={searchOpen}
                   showPhone={showPhone}
@@ -148,6 +153,7 @@ Header.propTypes = {
   isOwner: PropTypes.bool,
   pages: PropTypes.array,
   phone: PropTypes.string,
+  phoneSize: PropTypes.string,
   primary1Color: PropTypes.string.isRequired,
   searchOpen: PropTypes.bool.isRequired
 }
