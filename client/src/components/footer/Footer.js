@@ -6,6 +6,7 @@ import FontIcon from 'material-ui/FontIcon'
 
 import './Footer.css'
 import footerContainer from '../../containers/footer/footerContainer'
+import Media from '../media/Media'
 import loadImage from '../images/loadImage'
 
 const Footer = ({
@@ -36,7 +37,9 @@ const Footer = ({
       borderTop,
       borderBottom,
       color,
-      margin,
+      imageBorderRadius,
+      imageElevation,
+      imageMargin,
     }
   },
   primary1Color
@@ -64,9 +67,15 @@ const Footer = ({
         </div>
       </div>
       {image && image.src ?
-        <div style={{ overflow: 'hidden' }}>
-          <img src={image.src} alt="" style={{ display: 'block', margin }}/>
+        <div className="footer-image">
+          <Media
+            image={image}
+            borderRadius={imageBorderRadius}
+            elevation={imageElevation}
+            margin={imageMargin}
+          />
         </div>
+
       :
       <div style={{ paddingBottom: 16 }}/>
       }

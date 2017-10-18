@@ -14,6 +14,8 @@ const BrandSchema = new Schema({
       fontSize: { type: String, trim: true, default: '24px' },
       fontWeight: { type: String, trim: true, default: '300' },
       height: { type: String, trim: true },
+      imageBorderRadius: { type: String, trim: true },
+      imageElevation: { type: String, trim: true },
       imagePosition: { type: String, trim: true, default: 'relative' },
       letterSpacing: { type: String, trim: true },
       name: { type: String, trim: true, default: 'Brand' },
@@ -41,7 +43,6 @@ const BrandSchema = new Schema({
       h3TextShadow: { type: String, trim: true },
       pColor: { type: String, trim: true, default: 'rgba(0, 0, 0, .87)' },
       mediaBorder: { type: String, trim: true },
-      mediaBoxShadow: { type: String, trim: true, default: 'rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px' },
       mediaElevation: { type: Number, trim: true, default: 2 }
     }
   },
@@ -58,27 +59,29 @@ const BrandSchema = new Schema({
       height: { type: Number, trim: true, default: 128 }
     },
     values: {
-      name: { type: String, trim: true, default: 'Brand' },
-      license: { type: String, trim: true },
-      description: { type: String, trim: true, default: null },
-      keywords: { type: String, trim: true },
-      googleSiteVerification: { type: String, trim: true, minlength: 1 },
-      googleAnalyticsUA: { type: String, trim: true, minlength: 1 },
-      stripePk: { type: String, trim: true, minlength: 1 },
-      phone: { type: String, trim: true, default: null },
-      email: { type: String, trim: true, default: null },
-      street: { type: String, trim: true, default: null },
       city: { type: String, trim: true, default: null },
-      state: { type: String, trim: true, default: null },
-      zip: { type: String, trim: true, default: null },
+      description: { type: String, trim: true, default: null },
+      email: { type: String, trim: true, default: null },
       facebook: { type: String, trim: true },
       github: { type: String, trim: true },
       google: { type: String, trim: true },
+      googleAnalyticsUA: { type: String, trim: true, minlength: 1 },
+      googleSiteVerification: { type: String, trim: true, minlength: 1 },
+      imageBorderRadius: { type: String, trim: true },
+      imageElevation: { type: Number, trim: true },
       instagram: { type: String, trim: true },
+      keywords: { type: String, trim: true },
+      license: { type: String, trim: true },
       linkedin: { type: String, trim: true },
+      name: { type: String, trim: true, default: 'Brand' },
+      phone: { type: String, trim: true, default: null },
+      state: { type: String, trim: true, default: null },
+      street: { type: String, trim: true, default: null },
+      stripePk: { type: String, trim: true, minlength: 1 },
       twitter: { type: String, trim: true },
       yelp: { type: String, trim: true },
       youtube: { type: String, trim: true },
+      zip: { type: String, trim: true, default: null },
     }
   },
   cardStyle: {
@@ -116,7 +119,9 @@ const BrandSchema = new Schema({
       color: { type: String, trim: true, default: '#ffffff' },
       borderTop: { type: String, trim: true },
       borderBottom: { type: String, trim: true },
-      margin: { type: String, trim: true },
+      imageBorderRadius: { type: String, trim: true },
+      imageElevation: { type: String, trim: true },
+      imageMargin: { type: String, trim: true },
     }
   },
   heroStyle: {
@@ -139,7 +144,6 @@ const BrandSchema = new Schema({
       h3TextShadow: { type: String, trim: true },
       pColor: { type: String, trim: true, default: 'rgba(0, 0, 0, .87)' },
       mediaBorder: { type: String, trim: true },
-      mediaBoxShadow: { type: String, trim: true, default: 'rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px' },
       mediaElevation: { type: Number, trim: true, default: 2 },
       minHeight: { type: String, trim: true, default: '85vh' }
     }
@@ -171,33 +175,28 @@ const BrandSchema = new Schema({
       nameColor: { type: String, trim: true },
       nameTextShadow: { type: String, trim: true },
       margin: { type: String, trim: true, default: '16px' },
-      mediaBoxShadow: { type: String, trim: true, default: 'rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px' },
       mediaElevation: { type: Number, trim: true, default: 2 }
     }
   },
   typography: {
     values: {
       fontFamily: { type: String, trim: true, default: 'Roboto, sans-serif' },
-      h1FontFamily: { type: String, trim: true, default: 'Roboto, sans-serif' },
+      h1FontFamily: { type: String, trim: true, default: 'inherit' },
       h1FontSize: { type: String, trim: true, default: '56px'},
       h1FontWeight: { type: String, trim: true, default: '300' },
       h1LetterSpacing: { type: String, trim: true, default: '1px' },
-      h1LineHeight: { type: String, trim: true, default: '48px' },
-      h2FontFamily: { type: String, trim: true, default: 'Roboto, sans-serif' },
+      h2FontFamily: { type: String, trim: true, default: 'inherit' },
       h2FontSize: { type: String, trim: true, default: '1.5em' },
       h2FontWeight: { type: String, trim: true, default: '300' },
       h2LetterSpacing: { type: String, trim: true, default: 'normal' },
-      h2LineHeight: { type: String, trim: true, default: '1.334' },
-      h3FontFamily: { type: String, trim: true, default: 'Roboto, sans-serif' },
+      h3FontFamily: { type: String, trim: true, default: 'inherit' },
       h3FontSize: { type: String, trim: true, default: '1.25em' },
       h3FontWeight: { type: String, trim: true, default: '300' },
       h3LetterSpacing: { type: String, trim: true, default: 'normal' },
-      h3LineHeight: { type: String, trim: true, default: '1.4' },
       pFontFamily: { type: String, trim: true, default: 'Roboto, sans-serif' },
       pFontSize: { type: String, trim: true, default: '16px' },
       pFontWeight: { type: String, trim: true, default: '300' },
       pLetterSpacing: { type: String, trim: true, default: 'normal' },
-      pLineHeight: { type: String, trim: true, default: '1.6' },
     }
   }
 },{

@@ -10,7 +10,7 @@
   .largerThanIphone667 {
     display: none !important;
   }
-  .absolute {
+  .appbar-brand {
     max-height: 175px !important;
     max-width: 175px !important;
   }
@@ -45,12 +45,18 @@
 }
 
 .drawer-brand {
+  display: flex;
+  cursor: pointer;
   font-size: 24px;
   height: 64px;
-  padding-left: 16px;
-  cursor: pointer;
-  display: flex;
   margin-bottom: 16px;
+  max-height: 64px;
+  padding-left: 16px;
+}
+
+.drawer-brand img {
+  max-height: 64px;
+  width: inherit;
 }
 
 .drawer-user {
@@ -114,4 +120,12 @@
 .absolute {
   position: absolute;
   align-self: flex-start;
+}
+
+.drawer-image {
+  max-height: 64px;
+}
+
+.drawer-brand-name {
+  align-self: center;
 }

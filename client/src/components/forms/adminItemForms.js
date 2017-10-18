@@ -21,9 +21,9 @@ const adminItemForms = [{
     { name: 'h2Text', type: 'text' },
     { name: 'h3Text', type: 'text' },
     { name: 'iframe', type: 'text' },
-    { name: 'mediaAlign', type: 'select', options: [ 'leftOfText', 'leftOfParagraph', 'rightOfText', 'rightOfParagraph' ] },
+    { name: 'mediaAlign', type: 'select', options: [ 'aboveText', 'belowText', 'leftOfText', 'leftOfParagraph', 'rightOfText', 'rightOfParagraph' ] },
     { name: 'mediaBorder', type: 'text' },
-    { name: 'mediaBoxShadow', type: 'text' },
+    { name: 'mediaBorderRadius', type: 'text' },
     { name: 'mediaElevation', type: 'number' },
     { name: 'mediaFlex', type: 'text' },
     { name: 'textFlex', type: 'text' },
@@ -52,14 +52,7 @@ const adminItemForms = [{
   delete: contactFormDelete,
   fields: [
     { name: 'button1Text', type: 'text' },
-    { name: 'button1Link', type: 'text' },
-    { name: 'button2Text', type: 'text' },
-    { name: 'button2Link', type: 'text' },
-    { name: 'h1Text', type: 'text', },
-    { name: 'h2Text', type: 'text', },
     { name: 'h3Text', type: 'text', },
-    { name: 'iframe', type: 'text', },
-    { name: 'link', type: 'text', },
     { name: 'pText', type: 'wysiwgy' },
   ]
 }, {
@@ -76,6 +69,9 @@ const adminItemForms = [{
     { name: 'h2Text', type: 'text', },
     { name: 'h3Text', type: 'text', },
     { name: 'iframe', type: 'text', },
+    { name: 'mediaFlex', type: 'text' },
+    { name: 'mediaBorderRadius', type: 'text' },
+    { name: 'mediaElevation', type: 'number' },
     { name: 'pText', type: 'wysiwgy' }
   ]
 }, {

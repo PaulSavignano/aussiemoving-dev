@@ -22,11 +22,10 @@ import adminItemForms from './adminItemForms'
 class AdminItemForm extends Component {
   state = {
     backgroundImageEdit: false,
-    deleteBackgroundImage: false,
     backgroundTimeoutId: null,
+    deleteBackgroundImage: false,
     disabled: true,
     imageEdit: false,
-    deleteImage: false,
     imageTimeoutId: null,
     itemForm: null
   }
@@ -53,21 +52,21 @@ class AdminItemForm extends Component {
     })
   }
   handleImageRemove = () => {
-    const { dispatch, editItem: { item: { _id, image }}} = this.props
+    const { editItem: { item: { image }}} = this.props
     const deleteImage = image.src ? true : false
     this.setState({
-      disabled: false,
       imageEdit: false,
-      deleteImage
+      deleteImage,
+      disabled: false
     })
   }
   handleBackgroundImageRemove = () => {
-    const { dispatch, editItem: { item: { _id, backgroundImage }}} = this.props
+    const { editItem: { item: { backgroundImage }}} = this.props
     const deleteBackgroundImage = backgroundImage.src ? true : false
     this.setState({
-      disabled: false,
       backgroundImageEdit: false,
-      deleteBackgroundImage: true
+      deleteBackgroundImage,
+      disabled: false
     })
   }
   handleFormSubmit = (values) => {
@@ -183,6 +182,7 @@ class AdminItemForm extends Component {
           }
         }))
       default:
+        console.log('dispatching update', _id)
         return dispatch(fetchUpdate({
           _id,
           path: 'update-values',
@@ -200,25 +200,19 @@ class AdminItemForm extends Component {
   }
   handleStopEdit = () => this.props.dispatch(stopEdit())
   componentWillMount() {
-    const { editItem: { kind }} = this.props
+    const {
+      editItem: { kind },
+      pristine
+    } = this.props
     const itemForm = adminItemForms.find(form => form.name === kind)
-    this.setState({ itemForm })
+    this.setState({ disabled: pristine, itemForm })
   }
-  componentWillReceiveProps({
-    invalid,
-    pristine,
-  }) {
-    if (invalid !== this.props.invalid) this.setState({ disabled: invalid })
+  componentWillReceiveProps({ pristine }) {
     if (pristine !== this.props.pristine) this.setState({ disabled: pristine })
   }
   setImageFormRef = (imageEditor) => this.imageEditor = imageEditor
   setBackgroundImageFormRef = (backgroundImageEditor) => this.backgroundImageEditor = backgroundImageEditor
   render() {
-    const {
-      backgroundImageEdit,
-      disabled,
-      imageEdit
-    } = this.state
     const {
       error,
       handleSubmit,
@@ -227,7 +221,6 @@ class AdminItemForm extends Component {
         item: { _id, backgroundImage, image },
         kind,
       },
-      invalid,
       pristine,
       submitting
     } = this.props
@@ -237,7 +230,7 @@ class AdminItemForm extends Component {
         actions={
           <div className="button-container">
             <RaisedButton
-              disabled={disabled}
+              disabled={this.state.disabled}
               onTouchTap={handleSubmit(this.handleFormSubmit)}
               label={submitting ?
                 <CircularProgress key={1} color="#ffffff" size={25} style={{ verticalAlign: 'middle' }} />
@@ -296,7 +289,7 @@ class AdminItemForm extends Component {
               ref={this.setBackgroundImageFormRef}
             />
           }
-          <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
+          <div className="field-container">
             {this.state.itemForm.fields.map(({ name, type, options }) => {
               const format = value => value === undefined ? undefined : value.toString()
               switch(type) {
