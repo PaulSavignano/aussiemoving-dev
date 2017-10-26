@@ -1,0 +1,52 @@
+.Article,
+.AdminArticle {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.article-flex-content,
+.ArticleMediaLeftOfText {
+  display: flex;
+  justify-content: space-around;
+}
+.article-media {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin: 8px;
+}
+
+.article-heading,
+.article-paragraph {
+  margin: 8px 16px;
+}
+
+.article-text {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+
+.ArticleMediaAboveText,
+.ArticleMediaBelowText {
+  width: 100%
+}
+
+.article-media-above,
+.article-media-below {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.ArticleMediaLeftOfParagraph,
+.ArticleMediaRightOfParagraph {
+  width: 100%;
+}
+
+
+.ArticleMediaLeftOfText,
+.ArticleMediaRightOfText {
+  display: flex;
+  width: 100%;
+}

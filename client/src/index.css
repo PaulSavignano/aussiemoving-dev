@@ -1,0 +1,133 @@
+
+body {
+  margin: 0;
+}
+main {
+  min-height: 85vh;
+}
+h1, h2, h3, p {
+  margin: 0;
+}
+.page {
+  min-height: 85vh;
+  max-width: 1044px;
+  margin: 0 auto;
+  padding: 40px 0
+}
+.section {
+  position: relative;
+}
+
+.form {
+  margin: 16px;
+}
+
+.card {
+  margin: 16px;
+}
+
+
+
+
+
+
+
+
+/* Fields */
+.field-container {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 16px
+}
+.field {
+  flex: 1 1 auto;
+  margin: 0 8px;
+}
+.checkbox-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 16px
+}
+.checkbox {
+  width: auto !important;
+  margin: 0 8px;
+}
+.date {
+  display: flex;
+  align-items: flex-end;
+}
+
+
+
+
+
+
+
+
+/* Buttons */
+.button-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
+.button {
+  flex: 1 1 auto;
+  margin: 8px;
+}
+.delete-button > button {
+  background-color: rgba(213, 0, 0, 1) !important;
+  color: #ffffff !important;
+}
+.delete-button * {
+  color: #ffffff !important;
+}
+.delete-button > button:hover  {
+  background-color: rgba(213, 0, 0, 0.5) !important;
+}
+
+
+
+
+
+
+
+
+
+.error {
+  font-weight: bold;
+  color: rgb(244, 67, 54);
+  margin: 8px 16px;
+}
+
+
+
+
+
+
+
+/* Image Transistions */
+.fadein-appear {
+  opacity: 0;
+}
+.fadein-appear.fadein-appear-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+
+
+.cross-fade-leave {
+  opacity: 1;
+}
+.cross-fade-leave.cross-fade-leave-active {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+}
+.cross-fade-enter {
+  opacity: 0;
+}
+.cross-fade-enter.cross-fade-enter-active {
+  opacity: 1;
+  transition: opacity 2s ease-in;
+}

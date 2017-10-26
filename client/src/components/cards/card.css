@@ -1,0 +1,11 @@
+.CardItem, .AdminCard {
+  height: 100%;
+}
+.card-content {
+  padding: 8px;
+}
+
+.card-heading,
+.card-paragraph {
+  padding: 8px;
+}
